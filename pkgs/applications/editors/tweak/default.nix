@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, ncurses }:
+{ lib, stdenv, fetchurl, ncurses, gcc }:
 
 stdenv.mkDerivation rec {
   pname = "tweak";
@@ -9,13 +9,13 @@ stdenv.mkDerivation rec {
     sha256 = "06js54pr5hwpwyxj77zs5s40n5aqvaw48dkj7rid2d47pyqijk2v";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ gcc ncurses ];
   preBuild = "substituteInPlace Makefile --replace '$(DESTDIR)/usr/local' $out";
 
   meta = with lib; {
     description = "An efficient hex editor";
     homepage = "http://www.chiark.greenend.org.uk/~sgtatham/tweak";
     license = licenses.mit;
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }
